@@ -2,8 +2,8 @@ class Meta(type):
     children_number = 0
 
     def __new__(cls, name, bases, attrs):
-        attrs['class_number'] = Meta.children_number
-        Meta.children_number += 1
+        attrs['class_number'] = cls.children_number
+        cls.children_number += 1
         return type.__new__(cls, name, bases, attrs)
 
 
