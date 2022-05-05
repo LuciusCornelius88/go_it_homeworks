@@ -1,10 +1,10 @@
 import pickle
 import json
 from copy import deepcopy
-from abc import abstractmethod, ABCMeta
+from abc import abstractmethod, ABC
 
 
-class SerializationInterface(metaclass=ABCMeta):
+class SerializationInterface(ABC):
     def __init__(self, data, filepath):
         self.data = data
         self.filepath = filepath
