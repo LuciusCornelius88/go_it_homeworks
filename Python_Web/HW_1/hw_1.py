@@ -11,11 +11,11 @@ class SerializationInterface(ABC):
 
     @abstractmethod
     def serialize(self):
-        pass
+        raise NotImplementedError('Method "serialize" is not implemented!')
 
     @abstractmethod
     def deserialize(self):
-        pass
+        raise NotImplementedError('Method "deserialize" is not implemented!')
 
 
 class JsonData(SerializationInterface):
