@@ -1,0 +1,4 @@
+pyparsing
+prompt_toolkit
+alembic
+sqlalchemy
