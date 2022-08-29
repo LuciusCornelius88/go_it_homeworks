@@ -56,7 +56,7 @@ class LruCache:
 		print(f'Key {key} was set on the top of queue!')
 
 
-	def key_hasher(self, func, *args, **kwargs):
+	def key_hasher(self, return_type, func, *args, **kwargs):
 
 		try:
 			hashed_args = tuple([hash(arg) for arg in args])
@@ -64,8 +64,8 @@ class LruCache:
 		except TypeError:
 			raise UnhashableType
 
-		return '{}:{}:{}{!r}:{!r}'.format(self.key_prefix, func.__module__,
-										  func.__qualname__, hashed_args, hashed_kwargs)
+		return '{}:{}:{}{!r}:{!r}:{}'.format(self.key_prefix, func.__module__, func.__qualname__, 
+										  hashed_args, hashed_kwargs, return_type)
 
 
 	def cache_info(self):
@@ -89,7 +89,10 @@ class LruCache:
 		@functools.wraps(func)
 		def inner(*args, **kwargs):
 			try:
-				key = self.key_hasher(func, *args, **kwargs) 
+				return_type = func.__annotations__.get('return')
+				if return_type:
+					return_type = return_type.__qualname__
+				key = self.key_hasher(return_type, func, *args, **kwargs) 
 			except UnhashableType:
 				self.cache_info_sample['misses'] += 1
 				return func(*args, **kwargs)
@@ -110,9 +113,12 @@ class LruCache:
 					return result
 		return inner
 
-
+	# при преобразовании типа стоит костыляка, т.к. корректно работает только в случае, 
+	# если у функции есть аннотация возвращаемого значения
 	def __getitem__(self, key):
 		if self.client.hexists(self.cache, key):
-			return int(self.client.hget(self.cache, key))
+			return_type = eval(key.split(':')[-1])
+			return_value = self.client.hget(self.cache, key)
+			return return_type(return_value) if return_type else int(return_value)
 		else:
 			raise KeyError
