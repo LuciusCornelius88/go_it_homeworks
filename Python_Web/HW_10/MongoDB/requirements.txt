@@ -1,0 +1,4 @@
+pymongo
+mongoengine
+pyparsing
+prompt_toolkit
