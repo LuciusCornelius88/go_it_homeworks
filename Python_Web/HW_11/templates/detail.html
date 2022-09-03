@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RECORD INFORMATION</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/" role="button"> Go back to the main page </a></li>
+        </ul>
+      </nav>
+      <h1>ID_{{record.id}}, name: {{record.name}}</h1>
+      <p>Phones: <b>{{"; ".join(record.phones_val)}}</b></p>
+      <p>Emails: <b>{{"; ".join(record.emails_val)}}</b></p>
+      <p>Birthday: <b>{{record.birthday_val}}</b></p>
+      <p>Addresses: <b>{{'   +++   '.join(record.addresses_val)}}</b></p>
+    </main>
+  </body>
+</html>

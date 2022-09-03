@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CHANGE FIELD</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/" role="button"> Go back to the main page </a></li>
+          <li><a href="/change/{{record.name}}" role="button"> Go back to record change page </a></li>
+        </ul>
+      </nav>
+
+      {% if ch_type == "name" %}
+
+      <form method="POST" action="/records/{{record.name}}/name">
+        <div style="padding: 7px">
+          <label
+            >New name for record {{record.id}} {{record.name}}:
+            <input type="text" name="new_name" required />
+          </label>
+        </div>
+        <div class="grid">
+          <button type="reset" class="secondary">Reset</button>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      {% elif ch_type == "phone" %}
+
+      <form method="POST" action="/records/{{record.name}}/ch_phone">
+        <div style="padding: 7px">
+          <label
+            >Old phone of record {{record.id}} {{record.name}}:
+            <input type="text" name="old_phone" required/>
+          </label>
+          <label
+            >New phone of record {{record.id}} {{record.name}}:
+            <input type="text" name="new_phone" required/>
+          </label>
+        </div>
+        <div class="grid">
+          <button type="reset" class="secondary">Reset</button>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      {% elif ch_type == "email" %}
+
+      <form method="POST" action="/records/{{record.name}}/ch_email">
+        <div style="padding: 7px">
+          <label
+            >Old email of record {{record.id}} {{record.name}}:
+            <input type="text" name="old_email" required/>
+          </label>
+          <label
+            >New email of record {{record.id}} {{record.name}}:
+            <input type="text" name="new_email" required/>
+          </label>
+        </div>
+        <div class="grid">
+          <button type="reset" class="secondary">Reset</button>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      {% elif ch_type == "birthday" %}
+
+      <form method="POST" action="/records/{{record.name}}/ch_birthday" >
+        <div style="padding: 7px">
+          <label
+            >New year of birth for record {{record.id}} {{record.name}}:
+            <input type="text" name="year" />
+          </label>
+          <label
+            >New month of birth for record {{record.id}} {{record.name}}:
+            <input type="text" name="month" />
+          </label>
+          <label
+            >New day of birth for record {{record.id}} {{record.name}}:
+            <input type="text" name="day" />
+          </label>
+        </div>
+        <div class="grid">
+          <button type="reset" class="secondary">Reset</button>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      {% elif ch_type == "address" %}
+
+      <form method="POST" action="/records/{{record.name}}/ch_address">
+        <div style="padding: 7px">
+          <label
+            >Old city for record {{record.id}} {{record.name}}:
+            <input type="text" name="old_city" />
+          </label>
+          <label
+            >Old street for record {{record.id}} {{record.name}}:
+            <input type="text" name="old_street" />
+          </label>
+          <label
+            >Old postal_code for record {{record.id}} {{record.name}}:
+            <input type="text" name="old_postal_code" />
+          </label>
+        </div>
+        <div style="padding: 7px">
+          <label
+            >New city for record {{record.id}} {{record.name}}:
+            <input type="text" name="new_city" />
+          </label>
+          <label
+            >New street for record {{record.id}} {{record.name}}:
+            <input type="text" name="new_street" />
+          </label>
+          <label
+            >New postal_code for record {{record.id}} {{record.name}}:
+            <input type="text" name="new_postal_code" />
+          </label>
+        </div>
+        <div class="grid">
+          <button type="reset" class="secondary">Reset</button>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+
+      {% endif %}
+
+    </main>
+  </body>
+</html>

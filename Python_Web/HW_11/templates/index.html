@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CONTACTS MANAGER</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/add/" role="button">Add record</a></li>
+        </ul>
+      </nav>
+
+      {% for record in records%}
+      <ul>
+        <li>
+          {% if record %}
+          <a href="/detail/{{record.name}}" role="button" class="outline"
+            >{{record.name}}</a
+          >
+          <a href="/change/{{record.name}}" role="button">Change record</a>
+          <a href="/delete/{{record.name}}" role="button" class="contrast"
+            >Delete record</a
+          >
+          {% endif %}
+        </li>
+      </ul>
+      {% endfor %}
+    </main>
+  </body>
+</html>

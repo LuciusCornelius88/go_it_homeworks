@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CHANGE RECORD</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 250px"
+      >
+        <ul>
+          <li><a href="/" role="button"> Go back to the main page </a></li>
+        </ul>
+      </nav>
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/ch_name/{{record.name}}" role="button">Change name</a></li>
+        </ul>
+      </nav>
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/add_email/{{record.name}}" role="button" class="outline">Add email</a></li>
+          <li><a href="/ch_email/{{record.name}}" role="button">Change email</a></li>
+          <li><a href="/del_email/{{record.name}}" role="button" class="contrast">Delete email</a></li>
+        </ul>
+      </nav>
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/add_phone/{{record.name}}" role="button" class="outline">Add phone</a></li>
+          <li><a href="/ch_phone/{{record.name}}" role="button">Change phone</a></li>
+          <li><a href="/del_phone/{{record.name}}" role="button" class="contrast">Delete phone</a></li>
+        </ul>
+      </nav>
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/add_birthday/{{record.name}}" role="button" class="outline">Add birthday</a></li>
+          <li><a href="/ch_birthday/{{record.name}}" role="button">Change birthday</a></li>
+          <li><a href="/records/{{record.name}}/del_birthday" role="button" class="contrast">Delete birthday</a></li>
+        </ul>
+      </nav>
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/add_address/{{record.name}}" role="button" class="outline">Add address</a></li>
+          <li><a href="/ch_address/{{record.name}}" role="button">Change address</a></li>
+          <li><a href="/del_address/{{record.name}}" role="button" class="contrast">Delete address</a></li>
+        </ul>
+      </nav>
+    </main>
+  </body>
+</html>
