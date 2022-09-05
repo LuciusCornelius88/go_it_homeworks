@@ -1,0 +1,11 @@
+mysql:
+  database: hw_12
+  user: root
+  password: password
+  host: localhost
+  port: 3306
+  minsize: 1
+  maxsize: 5
+sources:
+  yakaboo: https://www.yakaboo.ua/ua/knigi/hudozhestvennaja-literatura/fantastika-fjentezi.html?book_lang=Ukrainskij&gclid=EAIaIQobChMImtzPgK7F-QIVTOd3Ch1x1gefEAAYASAAEgKrMvD_BwE
+  book24: https://book24.ua/ua/catalog/fantastika_fentezi/filter/language-is-ukr/apply/

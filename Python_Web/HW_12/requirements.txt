@@ -1,0 +1,9 @@
+aiohttp
+jinja2
+aiohttp_jinja2
+pyyaml
+sqlalchemy
+aiohttp_sqlalchemy
+alembic
+bs4
+lxml
