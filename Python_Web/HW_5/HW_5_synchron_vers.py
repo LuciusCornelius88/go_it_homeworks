@@ -13,7 +13,7 @@ def factorize(num: int):
 
 start_time = time.monotonic()
 
-nums_lst = [128, 255, 99999, 10651060]
+nums_lst = [12334521, 58493020, 10249495, 10651060]
 results = []
 
 for num in nums_lst:

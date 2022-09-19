@@ -16,7 +16,7 @@ def factorize(num: int):
 if __name__ == '__main__':
 	start_time = time.monotonic()
 
-	lst = [128, 255, 99999, 10651060]
+	lst = [12334524, 58493020, 10249495, 10651060]
 
 	with Pool(processes=4) as pool:
 		result = pool.map(factorize, lst)
