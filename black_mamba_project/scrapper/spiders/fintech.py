@@ -13,6 +13,7 @@ class Fintech(scrapy.Spider):
 
 		self.max_page = int(category[0])
 		self.lang = category[1]
+		self.user_id = category[2]
 		self.start_urls = FINTECH_START_URLS
 		self.base_url = self.start_urls[0]
 	
@@ -38,5 +39,6 @@ class Fintech(scrapy.Spider):
 		loader.add_value('link', links)
 		loader.add_value('published_on', dates)
 		loader.add_value('language', self.lang)
+		loader.add_value('user_id', self.user_id)
 
 		yield loader.load_item()

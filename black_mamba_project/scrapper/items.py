@@ -28,6 +28,7 @@ class FintechItem(Item):
     link = Field(input_processor=MapCompose(create_fintech_link))
     published_on = Field(input_processor=MapCompose(create_fintech_date))
     language = Field()
+    user_id = Field()
 
 
 
@@ -38,5 +39,6 @@ class CurrencyItem(Item):
     currency_name = Field()
     buy_value = Field()
     sale_value = Field()
+    user_id = Field()
 
 

@@ -41,7 +41,8 @@ class Pipeline:
             fintech_news.published_on = item['published_on'][i]
             fintech_news.language = item['language'][0]
 
-            exist_note = self.db.session.query(FintechNews).filter_by(link=fintech_news.link).first()
+            exist_note = self.db.session.query(FintechNews).filter(FintechNews.users.any(
+                                            id=item['user_id'][0])).filter_by(link=fintech_news.link).first()
 
             if exist_note:
                 if exist_note.category != fintech_news.category:
@@ -54,6 +55,7 @@ class Pipeline:
                     exist_note.language = fintech_news.language
                 
                 self.db.session.commit()
+                fintech_news = exist_note
 
             else:
                 try:
@@ -62,7 +64,17 @@ class Pipeline:
                 except:
                     pass
 
+            user_fintech = self.db.session.query(UserFintech).filter(
+                                                                (UserFintech.user_id == item['user_id'][0])&
+                                                                (UserFintech.fintech_id == fintech_news.id)).first()
+
+            if not user_fintech:
+                user_fintech = UserFintech(user_id=item['user_id'][0], fintech_id=fintech_news.id)
+                self.db.session.add(user_fintech)
+                self.db.session.commit()
+
         return item
+
 
 
     def process_currency(self, item, spider):
@@ -70,57 +82,62 @@ class Pipeline:
         bank_name = item['bank_name']
         currency_name = item['currency_name']
         
-        bank = self.db.session.query(Bank).filter_by(bank_name=bank_name).first()
+        bank = self.db.session.query(Bank).filter(Bank.users.any(
+                                        id=item['user_id'])).filter_by(bank_name=bank_name).first()
         if not bank:
             bank = Bank()
             bank.bank_name = bank_name
             self.db.session.add(bank)
             self.db.session.commit()
+            user_bank = UserBank()
+            user_bank.user_id = item['user_id']
+            user_bank.bank_id = bank.id
+            self.db.session.add(user_bank)
+            self.db.session.commit()
 
-        currency = self.db.session.query(Currency).filter_by(currency_name=currency_name).first()
+
+        currency = self.db.session.query(Currency).filter(Currency.users.any(
+                                        id=item['user_id'])).filter_by(currency_name=currency_name).first()
         if not currency:
             currency = Currency()
             currency.currency_name = currency_name
             self.db.session.add(currency)
             self.db.session.commit()
+            user_currency = UserCurrency()
+            user_currency.user_id = item['user_id']
+            user_currency.currency_id = currency.id
+            self.db.session.add(user_currency)
+            self.db.session.commit()
 
-        bank = self.db.session.query(Bank).filter_by(bank_name=bank_name).first()
-        currency = self.db.session.query(Currency).filter_by(currency_name=currency_name).first()
+        bank = self.db.session.query(Bank).filter(Bank.users.any(
+                                        id=item['user_id'])).filter_by(bank_name=bank_name).first()
+        currency = self.db.session.query(Currency).filter(Currency.users.any(
+                                        id=item['user_id'])).filter_by(currency_name=currency_name).first()
 
-        currency_bank = self.db.session.query(Currency_Bank).filter(
-                                             (Currency_Bank.currency_id == currency.id)&(Currency_Bank.bank_id == bank.id)).first()
+        currency_bank = self.db.session.query(CurrencyBank).filter(
+                                                            (CurrencyBank.currency_id == currency.id)&
+                                                            (CurrencyBank.bank_id == bank.id)).first()
         
         if not currency_bank:
-            currency_bank = Currency_Bank(currency_id=currency.id, bank_id=bank.id)
+            currency_bank = CurrencyBank(currency_id=currency.id, bank_id=bank.id)
             self.db.session.add(currency_bank)
 
-        buy_value = self.db.session.query(BuyValues).filter(
-                                         (BuyValues.currency_id == currency.id)&(BuyValues.bank_id == bank.id)).first()
+        value = self.db.session.query(Value).filter((Value.currency_id == currency.id)&(Value.bank_id == bank.id)).first()
 
-        if not buy_value:
-            buy_value = BuyValues()
-            buy_value.bank_id = bank.id
-            buy_value.currency_id = currency.id
-            self.db.session.add(buy_value)
+        if not value:
+            value = Value()
+            value.bank_id = bank.id
+            value.currency_id = currency.id
+            self.db.session.add(value)
             
-        buy_value.buy_value = item['buy_value']
-        buy_value.date_of = datetime.now().date()
-
-        sale_value = self.db.session.query(SaleValues).filter(
-                                          (SaleValues.currency_id == currency.id)&(SaleValues.bank_id == bank.id)).first()
-
-        if not sale_value:
-            sale_value = SaleValues()
-            sale_value.bank_id = bank.id
-            sale_value.currency_id = currency.id
-            self.db.session.add(sale_value)
-
-        sale_value.sale_value = item['sale_value']
-        sale_value.date_of = datetime.now().date()
+        value.buy_value = item['buy_value']
+        value.sale_value = item['sale_value']
+        value.date_of = datetime.now().date()
 
         self.db.session.commit()
 
         return item
+
 
 
     def process_item(self, item, spider):

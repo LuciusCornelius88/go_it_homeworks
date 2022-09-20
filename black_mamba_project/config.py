@@ -1,3 +1,4 @@
+
 # SCRAPPER_PARAMS
 FINTECH_START_URLS = ['https://www.stockworld.com.ua']
 FINTECH_MAX_PAGES = 35
@@ -13,3 +14,6 @@ class Config:
 	SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:password@localhost/news_scrapper'
 	SQLALCHEMY_ECHO = True
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+	# AUTHENTICATION
+	SECRET_KEY = '9OLWxND4o83j4K4iuopO'

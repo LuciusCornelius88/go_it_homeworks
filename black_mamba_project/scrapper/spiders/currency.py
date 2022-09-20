@@ -9,9 +9,10 @@ class Currency(scrapy.Spider):
 
 	name = 'currency'
 
-	def __init__(self, category=None, *args, **kwargs):
+	def __init__(self, category, *args, **kwargs):
 		super(Currency, self).__init__(*args, **kwargs)
 		
+		self.user_id = category
 		self.start_urls = CURRENCY_START_URLS
 		self.base_url = CURRENCY_BASE_URL
 
@@ -46,6 +47,7 @@ class Currency(scrapy.Spider):
 				item['currency_name'] = currency_name.replace('\n','').lower()
 				item['buy_value'] = float(buy_value)
 				item['sale_value'] = float(sale_value)
+				item['user_id'] = self.user_id
 			except:
 				continue
 
